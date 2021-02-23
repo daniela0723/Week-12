@@ -46,41 +46,6 @@ class HouseService {
       type: "DELETE",
     });
   }
-
-  static addRoom(id) {
-    for (let house of this.houses) {
-      if (house._id == id) {
-        house.rooms.push(
-          new Room(
-            $(`#${house._id}-room-name`).val(),
-            $(`#${house._id}-room-area`).val()
-          )
-        );
-        HouseService.updateHouse(house)
-          .then(() => {
-            return HouseService.getAllHouses();
-          })
-          .then((houses) => this.render(houses));
-      }
-    }
-  }
-
-  static deleteRoom(houseId, roomId) {
-    for (let house of this.houses) {
-      if (house._id == houseId) {
-        for (let room of house.rooms) {
-          if (room._id == roomId) {
-            house.rooms.splice(house.rooms.indexOf(room), 1);
-            HouseServices.updateHouse(house)
-              .then(() => {
-                return HouseService.getAllHouses();
-              })
-              .then((houses) => this.render(houses));
-          }
-        }
-      }
-    }
-  }
 }
 
 class DOMManager {
@@ -106,6 +71,40 @@ class DOMManager {
       .then((houses) => this.render(houses));
   }
 
+  static addRoom(id) {
+    for (let house of this.houses) {
+      if (house._id == id) {
+        house.rooms.push(
+          new Room(
+            $(`#${house._id}-room-name`).val(),
+            $(`#${house._id}-room-area`).val()
+          )
+        );
+        HouseService.updateHouse(house)
+          .then(() => {
+            return HouseService.getAllHouses();
+          })
+          .then((houses) => this.render(houses));
+      }
+    }
+  }
+
+  static deleteRoom(houseId, roomId) {
+    for (let house of this.houses) {
+      if (house._id == houseId) {
+        for (let room of house.rooms) {
+          if (room._id == roomId) {
+            house.rooms.splice(house.rooms.indexOf(room), 1);
+            HouseService.updateHouse(house)
+              .then(() => {
+                return HouseService.getAllHouses();
+              })
+              .then((houses) => this.render(houses));
+          }
+        }
+      }
+    }
+  }
   static render(houses) {
     this.houses = houses;
     $("#app").empty();
@@ -123,7 +122,7 @@ class DOMManager {
                     <input type="text" id="${house._id}-room-name" class="form-control" placeholder="Room Name">
                 </div>
                 <div class="col-sm">
-                <input type="text" id="${house._id}-room-area" class="form-control" placeholder="Room Area">
+                <input type="text" id="${house._id}-room-area" class="form-control" placeholder="Room Area (in sq ft)">
                 </div>
             </div>
             <button id="${house._id}-new-room" onclick="DOMManager.addRoom('${house._id}')" class="btn btn-primary form-control">Add</button>
@@ -138,8 +137,8 @@ class DOMManager {
               ${room.name}</span>
               <span id="area-${room._id}">
                 <strong>Area: </strong>
-              ${room.name}</span>
-              <button class="btn btn-danger" onclick="DOMManager.deleteRoom(${house._id}, ${room._id})>Delete Room</button>
+              ${room.area}</span>
+              <button class="btn btn-danger" onclick="DOMManager.deleteRoom('${house._id}', '${room._id}')">Delete Room</button>
             </p>`
         );
       }
@@ -147,7 +146,7 @@ class DOMManager {
   }
 }
 
-$("#create-new-house").click(() => {
+$("#create-new-house").on("click", () => {
   DOMManager.createHouse($("#new-house-name").val());
   $("#new-house-name").val("");
 });
