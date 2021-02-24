@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.container {
+  margin: auto;
+  padding: 10px;
+  background-color: white;
+}
+
+h1 {
+  text-align: center;
+}
+
+header {
+  width: 100%;
+  background: violet;
+  padding: 10px auto;
+}
+
+header h3 {
+  color: white;
+  text-align: center;
+}
+
+.hide-form {
+  display: none;
+}
+
+.table-cakes {
+  width: 90%;
+  margin: auto;
+  border-collapse: collapse;
+}
+
+.table-cakes th,
+.table-cakes td {
+  text-align: center;
+  /* border-top: 1px solid #ddd; */
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.table-cakes th {
+  padding: 10px auto;
+}
+
+.btn {
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.5s ease;
+}
+
+.btn-edit {
+  background-color: plum;
+  color: white;
+  border: none;
+}
+
+.btn-edit:hover {
+  background: #777;
+  color: white;
+}
+
+.btn-delete {
+  background-color: purple;
+  color: white;
+  border: none;
+}
+
+.btn-delete:hover {
+  background: #777;
+  color: white;
+}
+
+.table-wrapper {
+  text-align: center;
+}
+
+.btn-add {
+  width: 6rem;
+  height: 2rem;
+  background: violet;
+  border: none;
+  color: #fff;
+}
+
+/* Modal */
+.modal-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #2423238e;
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  background: #fff;
+  text-align: center;
+  width: 50%;
+  margin: 10px auto;
+  /* -webkit-box-shadow: 0px 4px 22px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 4px 22px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 4px 22px -6px rgba(0, 0, 0, 0.75);
+  animation-name: animatetop;
+  animation-duration: 0.4s; */
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.modal-show {
+  display: block;
+}
+
+.modal-header {
+  background-color: white;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.modal-body {
+  padding: 10px;
+}
+
+input {
+  width: 50%;
+  height: auto;
+  margin-bottom: 5px;
+  outline: none;
+}
