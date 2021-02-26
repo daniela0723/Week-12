@@ -136,26 +136,27 @@ class DOMManager {
   }
 
   static getNewCakeForm(orderDesc) {
-    return `<div class="form-group">
+    return `<div class="form-group" id="new-cake-form">
                  <label for="new-cake-flavor-${orderDesc.id}">Flavor:</label><br>
-                 <input class="form-control" type="text" id="new-cake-flavor-${orderDesc.id} placeholder="Enter the flavor for your cake">
+                 <input class="form-control" type="text" id="new-cake-flavor-${orderDesc.id}" placeholder="Enter the flavor for your cake">
                 </div>
                 <div class="form-group">
                  <label for="new-cake-frosting-${orderDesc.id}">Frosting:</label><br>
-                 <input class="form-control" type="text" id="new-cake-frosting-${orderDesc.id} placeholder="Enter the frosting color for your cake">
+                 <input class="form-control" type="text" id="new-cake-frosting-${orderDesc.id}" placeholder="Enter the color for your cake">
                 </div>
                 <div class="form-group">
                  <label for="new-cake-layers-${orderDesc.id}">No. of Layers:</label><br>
-                 <input class="form-control" type="text" id="new-layers-${orderDesc.id} placeholder="Enter the # of layers for your cake (max = 3)">
+                 <input class="form-control" type="text" id="new-layers-${orderDesc.id}" placeholder="Enter the no. of layers for your cake (max = 3)">
                 </div>
                 <div class="form-group">
                  <label for="new-cake-shape-${orderDesc.id}">Shape of Cake:</label><br>
-                 <input class="form-control" type="text" id="new-shape-${orderDesc.id} placeholder="Enter the shape for your cake (New Shape BUNDT)">
+                 <input class="form-control" type="text" id="new-shape-${orderDesc.id}" placeholder="Enter the shape for you cake (NEW SHAPE: Bundt)">
                 </div>
                 <div class="form-group">
                     <button class="form-control btn btn-primary" id="add-cake-for-order-${orderDesc.id}" data-order-id="${orderDesc.id}">Add New Cake</button>
                 </div>`;
   }
+
 
   static getOrderBox(orderDesc) {
     let orderHeader = DOMManager.getOrderHeader(orderDesc);
