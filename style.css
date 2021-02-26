@@ -1,0 +1,42 @@
+body {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-size: 100% 100%;
+  background-position: top center;
+  font-family: "Quicksand", sans-serif;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+}
+
+h3 {
+  font-family: "Sofia", cursive;
+  text-align: center;
+  font-size: 40px;
+}
+
+.dropdown-menu {
+  border: none;
+}
+
+.navbar-brand {
+  text-align: left;
+  font-family: "Sofia", cursive;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  position: fixed-bottom;
+  width: 100%;
+  height: 90px;
+  background-color: none;
+  text-align: center;
+}
