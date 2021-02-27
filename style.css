@@ -68,6 +68,10 @@ form.form-inline {
   font-family: "Sofia", cursive;
 }
 
+.nav-link {
+  text-align: center;
+}
+
 .btn-danger {
   float: right;
   font-weight: bold;
