@@ -1,5 +1,4 @@
-//utilities
-
+//The utilities will store the function for generating new object ids, otherwise it will be made global
 let utils = (function () {
   let ids = 0;
   function getNewId() {
@@ -21,13 +20,12 @@ class Cake {
 }
 
 //New Order Model
-
 class Order {
-  constructor(id, name, baker, deliveryDate) {
+  constructor(id, name, baker, eventDate) {
     this.id = id;
     this.name = name;
     this.baker = baker;
-    this.deliveryDate = deliveryDate;
+    this.eventDate = eventDate;
     this.cakes = [];
   }
 
@@ -38,7 +36,7 @@ class Order {
     );
   }
 
-  //remove Cake function
+  //Remove Cake function
   removeCake(id) {
     let cakeToDeleteIdx = this.cakes.map((cake) => cake.id).indexOf(id);
     if (cakeToDeleteIdx != -1) {
@@ -47,11 +45,8 @@ class Order {
   }
 }
 
-//Dont know what this is but we have to have it to work
-
+//Where our orders will be stored
 let orderRepo = [];
-
-//why is this called service?
 
 class OrderService {
   static getIdxForId(orderId) {
@@ -66,6 +61,7 @@ class OrderService {
     orderRepo.push(order);
   }
 
+  //We update the order by first locating it in the orderRepo
   static updateOrder(order) {
     let indexToUpdate = OrderService.getIdxForId(order.id);
     if (indexToUpdate != -1) {
@@ -90,45 +86,44 @@ class OrderService {
 let currentState;
 
 function updateState(newState) {
-  //this re renders the DOM(?)
+  //The new state is rendered in real-time
   currentState = newState;
   DOMManager.render();
 }
 
 //DOM Manager
-
 class DOMManager {
   static getOrderHeader(orderDesc) {
     return `<div>
                     <div class="row">
                         <div class="col-8">
-                            <h4> Order Name: <small class="text-muted">${orderDesc.name}</small> <br>
-                            Baked by : <small class="text-muted">${orderDesc.baker}</small>  <br>
-                            Delivery Date: <small class="text-muted">${orderDesc.deliveryDate}</small></h4>
+                            <h4><span>Order Name:</span> <small class="text-muted">${orderDesc.name}</small><br>
+                            <span>Baked by :</span> <small class="text-muted">${orderDesc.baker}</small><br>
+                            <span>Event Date:</span> <small class="text-muted">${orderDesc.eventDate}</small></h4>
                         </div>
                         <div class="col-4">
                             <button class="delete-order btn btn-danger" 
-                                id="delete-order-${orderDesc.id}" data-order-id="${orderDesc.id}">Delete Order</button>
+                                id="delete-order-${orderDesc.id}" data-order-id="${orderDesc.id}">Delete</button>
                         </div>
                     </div>
                 </div>`;
   }
-
+  //We render the orders on the DOM programmatically with template literals + HTML by looping through each cake object in the order array
   static getCakeMarkupForOrder(orderDesc) {
     let cakeHtml = [];
     orderDesc.cakes.forEach((cakeDesc) => {
       cakeHtml.push(`<div class="row">
                 <div class="col-8">
                     <ul>
-                        <li>Flavor: ${cakeDesc.flavor}</li>
-                        <li>Frosting: ${cakeDesc.frosting}</li>
-                        <li>No. of Layers: ${cakeDesc.layers}</li>
-                        <li>Shape: ${cakeDesc.shape}</li>
+                        <li><b>Flavor:</b> ${cakeDesc.flavor}</li>
+                        <li><b>Frosting:</b> ${cakeDesc.frosting}</li>
+                        <li><b>No. of Layers:</b> ${cakeDesc.layers}</li>
+                        <li><b>Shape:</b> ${cakeDesc.shape}</li>
                     </ul>
                 </div>
                 <div class="col-4">
                     <button class="delete-cake btn btn-danger" id="delete-cake-${cakeDesc.id}" 
-                        data-cake-id="${cakeDesc.id}" data-order-id="${orderDesc.id}">Delete Cake</button>
+                        data-cake-id="${cakeDesc.id}" data-order-id="${orderDesc.id}">Delete</button>
                 </div>
             </div>`);
     });
@@ -137,26 +132,49 @@ class DOMManager {
 
   static getNewCakeForm(orderDesc) {
     return `<div class="form-group" id="new-cake-form">
-                 <label for="new-cake-flavor-${orderDesc.id}">Flavor:</label><br>
-                 <input class="form-control" type="text" id="new-cake-flavor-${orderDesc.id}" placeholder="Enter the flavor for your cake">
-                </div>
+      <label for="new-cake-flavor-${orderDesc.id}">Flavor:</label><br>
+        <div class="input-group">
+            <select class="custom-select" id="new-cake-flavor-${orderDesc.id}">
+            <option selected>Choose..</option>
+            <option value="Vanilla">Vanilla</option>
+            <option value="Chocolate">Chocolate</option>
+            <option value="Lemon">Lemon</option>
+            <option value="Red Velvet">Red Velvet</option>
+            <option value="Carrot">Carrot</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="new-cake-frosting-${orderDesc.id}">Frosting:</label><br>
+          <input class="form-control" type="text" id="new-cake-frosting-${orderDesc.id}" placeholder="Enter the color for your cake">
+          </div>
+          <div class="form-group">
+            <label for="new-cake-layers-${orderDesc.id}">Number of Layers:</label><br>
+            <div class="input-group">
+            <select class="custom-select" id="new-layers-${orderDesc.id}">
+            <option selected>Choose..</option>
+            <option value="One">One</option>
+            <option value="Two">Two</option>
+            <option value="Three">Three</option>
+            </select>
+            </div>
+         </div>
+         <div class="form-group">
+          <label for="new-cake-shape-${orderDesc.id}">Shape of Cake:</label><br>
+          <div class="input-group">
+          <select class="custom-select" id="new-shape-${orderDesc.id}">
+          <option selected>Choose...</option>
+          <option value="Square">Square</option>
+          <option value="Circle">Circle</option>
+          <option value="Rectangle">Rectangle</option>
+          <option value="Bundt">Bundt</option>
+          </select>
+          </div>
+          <br>
                 <div class="form-group">
-                 <label for="new-cake-frosting-${orderDesc.id}">Frosting:</label><br>
-                 <input class="form-control" type="text" id="new-cake-frosting-${orderDesc.id}" placeholder="Enter the color for your cake">
-                </div>
-                <div class="form-group">
-                 <label for="new-cake-layers-${orderDesc.id}">No. of Layers:</label><br>
-                 <input class="form-control" type="text" id="new-layers-${orderDesc.id}" placeholder="Enter the no. of layers for your cake (max = 3)">
-                </div>
-                <div class="form-group">
-                 <label for="new-cake-shape-${orderDesc.id}">Shape of Cake:</label><br>
-                 <input class="form-control" type="text" id="new-shape-${orderDesc.id}" placeholder="Enter the shape for you cake (NEW SHAPE: Bundt)">
-                </div>
-                <div class="form-group">
-                    <button class="form-control btn btn-primary" id="add-cake-for-order-${orderDesc.id}" data-order-id="${orderDesc.id}">Add New Cake</button>
+                    <button class="form-control btn" id="add-cake-for-order-${orderDesc.id}" data-order-id="${orderDesc.id}">Add New Cake</button>
                 </div>`;
   }
-
 
   static getOrderBox(orderDesc) {
     let orderHeader = DOMManager.getOrderHeader(orderDesc);
@@ -174,13 +192,13 @@ class DOMManager {
   }
 
   static render() {
-    // render the application based on current state
+    //Render the app div based on current state
     let newMarkup = currentState.map(this.getOrderBox);
     $("#app").html(newMarkup);
   }
 
   static init() {
-    // application initialization, event delegation hookups
+    //Application initialization, event delegation hookups
     let $nameInput = $("#new-cake-order-name");
     let $bakerInput = $("#baker-name");
     let $dateInput = $("#date-due");
@@ -203,6 +221,7 @@ class DOMManager {
 
       if (!targetId) return;
 
+      //Determining which of our buttons was clicked on by user + delegating an event to each of them
       if (targetId.startsWith("delete-order")) {
         let orderId = $target.data("orderId");
         OrderService.deleteOrder(orderId);
@@ -213,16 +232,14 @@ class DOMManager {
         OrderService.deleteCake(orderId, cakeId);
         updateState(OrderService.getAllOrders());
       } else if (targetId.startsWith("add-cake-for-order")) {
+        //How we will get the cake info we need to create a description of it
         let orderId = $target.data("orderId");
-        // get the cake info we need
-
         let flavor = $(`#new-cake-flavor-${orderId}`).val();
         let frosting = $(`#new-cake-frosting-${orderId}`).val();
         let layers = $(`#new-layers-${orderId}`).val();
         let shape = $(`#new-shape-${orderId}`).val();
 
-        // we will update the order with the new cake
-
+        //We will update the order with the new cake
         let orderToUpdate;
         currentState.forEach((order) => {
           if (order.id === orderId) {

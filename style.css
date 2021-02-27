@@ -1,40 +1,77 @@
 body {
   width: 100%;
   height: auto;
-  min-height: 100vh;
   background-size: 100% 100%;
-  background-position: top center;
+  background-position: inherit;
   font-family: "Quicksand", sans-serif;
   background: url(images/bake.jpg) no-repeat center center fixed;
   background-size: cover;
   background-position: center;
 }
 
-#new-cake,
-div.card-body div.card-header {
-  background-color: rgba(229, 235, 230, 0.5);
-  box-shadow: 0px 0px 10px 3px grey;
-  color: black;
-}
-
 img {
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+}
+
+nav {
+  background-color: #f5cac3;
+}
+
+a {
+  color: #5a8177;
+}
+
+a:hover {
+  color: #f28482;
 }
 
 h3 {
   font-family: "Sofia", cursive;
   text-align: center;
-  font-size: 40px;
+  padding-top: 10px;
+  font-size: 50px;
+  color: #5a8177;
 }
 
-.dropdown-menu {
+h4 > span {
+  font-family: "Sofia", cursive;
+  color: #5a8177;
+}
+
+ul {
+  list-style: none;
+}
+
+div.card {
+  background-color: #f7ede296;
+  /* background-color: rgba(229, 235, 230, 0.75); */
+  box-shadow: 0px 0px 10px 3px #777;
+  filter: saturate(100%), contrast(70%), brightness(125%);
+  color: black;
+  margin-top: 30px;
+}
+
+form.form-inline {
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.dropdown-menu.show {
+  background-color: #f5cac3;
   border: none;
 }
 
 .navbar-brand {
   text-align: left;
   font-family: "Sofia", cursive;
+}
+
+.btn-danger {
+  float: right;
+  font-weight: bold;
+  border: none;
 }
 
 .center {
@@ -46,7 +83,44 @@ h3 {
 .footer {
   position: fixed-bottom;
   width: 100%;
-  height: 90px;
-  background-color: none;
+  height: 50px;
   text-align: center;
+}
+
+#company-name {
+  color: #5a8177;
+}
+
+#new-cake.jumbotron {
+  background-color: #f7ede296;
+  box-shadow: 0px 0px 10px 3px #777;
+  filter: saturate(100%), contrast(70%), brightness(125%);
+  color: black;
+  margin-top: 30px;
+}
+
+#create-new-cake,
+button.form-control {
+  background-color: #f28482;
+  color: #f7ede2;
+  font-weight: bold;
+}
+
+#create-new-cake:hover,
+button.form-control:hover {
+  background-color: #f5cac3;
+  color: #5a8177;
+  cursor: pointer;
+}
+
+button#sign-in {
+  background-color: #f28482;
+  color: #f7ede2;
+  font-weight: bold;
+}
+
+button#sign-in:hover {
+  background-color: #f5cac3;
+  color: #5a8177;
+  cursor: pointer;
 }
