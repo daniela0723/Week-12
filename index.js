@@ -47,7 +47,7 @@ class Order {
 
 //Where our orders will be stored
 let orderRepo = [];
-
+//Orders class
 class OrderService {
   static getIdxForId(orderId) {
     return orderRepo.map((a) => a.id).indexOf(orderId);
@@ -82,9 +82,8 @@ class OrderService {
 }
 
 //Frontend state
-
 let currentState;
-
+//State class
 function updateState(newState) {
   //The new state is rendered in real-time
   currentState = newState;
@@ -138,6 +137,7 @@ class DOMManager {
             <option selected>Choose..</option>
             <option value="Vanilla">Vanilla</option>
             <option value="Chocolate">Chocolate</option>
+            <option value="Tres Leches">Tres Leches</option>
             <option value="Lemon">Lemon</option>
             <option value="Red Velvet">Red Velvet</option>
             <option value="Carrot">Carrot</option>
@@ -146,16 +146,16 @@ class DOMManager {
       </div>
       <div class="form-group">
         <label for="new-cake-frosting-${orderDesc.id}">Frosting:</label><br>
-          <input class="form-control" type="text" id="new-cake-frosting-${orderDesc.id}" placeholder="Enter the color for your cake">
+          <input class="form-control" type="text" id="new-cake-frosting-${orderDesc.id}" placeholder="Enter the color(s) for your cake">
           </div>
           <div class="form-group">
             <label for="new-cake-layers-${orderDesc.id}">Number of Layers:</label><br>
             <div class="input-group">
             <select class="custom-select" id="new-layers-${orderDesc.id}">
             <option selected>Choose..</option>
-            <option value="One">One</option>
-            <option value="Two">Two</option>
-            <option value="Three">Three</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
             </select>
             </div>
          </div>
@@ -202,7 +202,7 @@ class DOMManager {
     let $nameInput = $("#new-cake-order-name");
     let $bakerInput = $("#baker-name");
     let $dateInput = $("#date-due");
-
+    //Add order button event listener
     $("#create-new-cake").on("click", () => {
       OrderService.addOrder(
         new Order(
@@ -214,7 +214,7 @@ class DOMManager {
       );
       updateState(OrderService.getAllOrders());
     });
-
+    //App div
     $("#app").on("click", (e) => {
       let $target = $(e.target);
       let targetId = $target.attr("id");
@@ -257,5 +257,5 @@ class DOMManager {
     updateState(OrderService.getAllOrders());
   }
 }
-
+//Initialize App
 DOMManager.init();
